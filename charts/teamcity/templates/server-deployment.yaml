@@ -39,12 +39,16 @@ spec:
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /
-              port: http
+              path: /mnt/get/stateRevision
+              port: 8111
+            initialDelaySeconds: 60
+            periodSeconds: 30
           readinessProbe:
             httpGet:
-              path: /
-              port: http
+              path: /mnt/get/stateRevision
+              port: 8111
+            initialDelaySeconds: 60
+            periodSeconds: 30
           resources:
             {{- toYaml .Values.server.resources | nindent 12 }}
       {{- with .Values.server.nodeSelector }}
