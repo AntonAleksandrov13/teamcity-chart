@@ -73,7 +73,7 @@ server:
 agent:
   replicaCount: 1
   image:
-    repository: jetbrains/teamcity-server
+    repository: jetbrains/teamcity-agent
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
     tag: latest
@@ -89,7 +89,7 @@ agent:
     annotations: {}
     # The name of the service account to use.
     # If not set and create is true, a name is generated using the fullname template
-    name: teamcity-server
+    name: teamcity-agent
 
   podAnnotations: {}
 
