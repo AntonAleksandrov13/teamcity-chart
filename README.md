@@ -13,7 +13,7 @@ teamcity` to see the charts.
 
 To install the teamcity chart:
 
-    helm install my-teamcity teamcity-name/teamcity
+    helm install my-teamcity teamcity-test/teamcity
 
 To uninstall the chart:
 
