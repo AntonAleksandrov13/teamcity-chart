@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "fullname" . }}
+data:
+  database.properties: |-
+    connectionProperties.user={{.Values.server.db.user}}
+    connectionProperties.password={{.Values.server.db.password}}
+    connectionUrl=jdbc\:mysql\://{{.Values.server.db.host}}:{{.Values.server.db.port}}/{{.Values.server.db.name}}
