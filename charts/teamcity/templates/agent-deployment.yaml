@@ -49,6 +49,12 @@ spec:
               port: 8111
             initialDelaySeconds: 60
             periodSeconds: 30
+      volumes:
+      - name: plugins
+        emptyDir: {}
+      - name: config
+        configMap:
+          name: {{ template "fullname" . }}
           resources:
             {{- toYaml .Values.agent.resources | nindent 12 }}
       {{- with .Values.agent.nodeSelector }}
