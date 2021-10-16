@@ -24,4 +24,5 @@ roleRef:
   name: teamcity:manage-agents
 subjects:
   - kind: ServiceAccount
-    name: {{- if .Values.server.serviceAccount.create -}}
+    name: {{ .Values.server.serviceAccount.name }}
+{{- end }}
