@@ -45,7 +45,7 @@ spec:
           image: fluent/fluent-bit:1.0.6
           volumeMounts:
           - name: logs
-            mountPath: /opt/teamcity/logs
+            mountPath: /opt/buildagent/logs
           - name: fluentbit-config
             mountPath: /fluent-bit/etc/fluent-bit.conf
             subPath: fluent-bit.conf
