@@ -18,6 +18,9 @@ server:
   logging:
     enabled: true
 
+  networkPolicy:
+    enabled: true
+
   persistentDataDir:
     enabled: true
     accessModes:
@@ -142,6 +145,7 @@ agent:
 
 global:
   resource_quota:
+    enabled: false
     cpu: "10000"
     memory: 10Gi
     pods: "10"
