@@ -13,7 +13,7 @@ data:
     [INPUT]
         Name             tail
         Path             /opt/buildagent/logs/error.log
-        Mem_Buf_Limit     5MB
+        Mem_Buf_Limit    5MB
 
     [OUTPUT]
         Name  stdout
