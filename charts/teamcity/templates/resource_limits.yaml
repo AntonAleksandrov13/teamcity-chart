@@ -1,3 +1,4 @@
+{{- if .Values.global.resource_quota.enabled -}}
 apiVersion: v1
 kind: ResourceQuota
 metadata:
@@ -8,3 +9,4 @@ spec:
   cpu: {{.Values.global.resource_quota.cpu}}
   memory: {{.Values.global.resource_quota.memory}}
   pods: {{.Values.global.resource_quota.pods}}
+{{- end }}
