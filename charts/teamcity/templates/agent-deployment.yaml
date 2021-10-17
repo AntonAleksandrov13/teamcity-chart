@@ -3,14 +3,18 @@ kind: Deployment
 metadata:
   name: {{ include "teamcity.fullname" . }}-agent
   labels:
-    {{- include "teamcity.labels" . | nindent 4 }}
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    app.kubernetes.io/name: {{ include "teamcity.name" . }}
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    app.kubernetes.io/instance: {{ .Release.Name }}-agent
 spec:
   {{- if not .Values.agent.autoscaling.enabled }}
   replicas: {{ .Values.agent.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "teamcity.selectorLabels" . | nindent 6 }}
+      {{- include "teamcity.selectorLabels" . | nindent 6 }}-agent
   template:
     metadata:
       {{- with .Values.agent.podAnnotations }}
@@ -18,7 +22,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "teamcity.selectorLabels" . | nindent 8 }}
+        {{- include "teamcity.selectorLabels" . | nindent 8 }}-agent
     spec:
       {{- with .Values.agent.imagePullSecrets }}
       imagePullSecrets:
@@ -50,8 +54,11 @@ spec:
             initialDelaySeconds: 60
             periodSeconds: 30
           env:
-          - name: SERVER_URL
-            value: "{{ include "teamcity.fullname" . }}:{{ .Values.server.service.port }}"
+           - name: SERVER_URL
+             value: "{{ include "teamcity.fullname" . }}:{{ .Values.server.service.port }}"
+          resources:
+            {{- toYaml .Values.agent.resources | nindent 12 }}
+      {{- with .Values.agent.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
