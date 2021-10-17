@@ -56,6 +56,11 @@ spec:
             {{- toYaml .Values.agent.securityContext | nindent 12 }}
           image: "{{ .Values.agent.image.repository }}:{{ .Values.agent.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.agent.image.pullPolicy }}
+     {{ if .Values.agent.logging.enabled }}
+          volumeMounts:
+          - name: logs
+            mountPath: /opt/buildagent/logs
+        {{ end }}
           ports:
             - containerPort: 8111
           env:
