@@ -139,3 +139,9 @@ agent:
   tolerations: []
 
   affinity: {}
+
+global:
+  resource_quota:
+    cpu: "10000"
+    memory: 10Gi
+    pods: "10"

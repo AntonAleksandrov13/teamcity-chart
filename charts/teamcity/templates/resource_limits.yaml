@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: {{ include "teamcity.fullname" . }}
+  namespace: {{.Release.Namespace}}
+spec:
+ hard:
+  cpu: {{.Values.global.resource_quota.cpu}}
+  memory: {{.Values.global.resource_quota.memory}}
+  pods: {{.Values.global.resource_quota.pods}}
