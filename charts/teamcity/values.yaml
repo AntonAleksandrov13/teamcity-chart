@@ -18,6 +18,9 @@ server:
   logging:
     enabled: true
 
+  networkPolicy:
+    enabled: true
+
   persistentDataDir:
     enabled: true
     accessModes:
