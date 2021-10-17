@@ -17,7 +17,7 @@ server:
 
   logging:
     enabled: true
-    
+
   persistentDataDir:
     enabled: true
     accessModes:
@@ -101,8 +101,8 @@ agent:
   nameOverride: ""
   fullnameOverride: ""
 
-  # logging:
-  #   enabled: true
+  logging:
+    enabled: true
 
   serviceAccount:
     # Specifies whether a service account should be created
