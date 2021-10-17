@@ -3,6 +3,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: {{ include "teamcity.fullname" . }}-server-data
+  namespace: {{.Release.Namespace}}
 spec:
   storageClassName: {{.Values.server.persistentDataDir.storageClass}}
   accessModes: {{.Values.server.persistentDataDir.accessModes}}
