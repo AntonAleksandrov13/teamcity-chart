@@ -14,12 +14,19 @@ server:
   imagePullSecrets: []
   nameOverride: ""
   fullnameOverride: ""
+
+  persistentDataDir:
+    enabled: true
+    accessModes:
+      - ReadWriteMany
+    size: 3Gi
+    storageClass: "manual"
   db:
-    user: db-user
+    user: root
     password: db-password
     name: db-name
     port: 3306
-    host: some_db
+    host: some-db-mysql
 
   serviceAccount:
     # Specifies whether a service account should be created

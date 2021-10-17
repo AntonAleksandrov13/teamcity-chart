@@ -29,7 +29,7 @@ spec:
         {{- toYaml .Values.server.podSecurityContext | nindent 8 }}
       initContainers:
         - name: download-plugins
-          image: busybox
+          image: alpine:latest
           command:
             - "sh"
             - "/download_plugins.sh"
@@ -86,7 +86,7 @@ spec:
         emptyDir: {}
       - name: data
         persistentVolumeClaim:
-          claimName: task-pv-claim
+          claimName: {{ include "teamcity.fullname" . }}-server-data
       - name: config
         configMap:
           name: {{ include "teamcity.fullname" . }}
