@@ -48,6 +48,16 @@ spec:
           - name: data
             mountPath: /mount
       containers:
+      {{ if .Values.server.logging.enabled }}
+        - name: fluentbit
+          image: fluent/fluent-bit:1.0.6
+          volumeMounts:
+          - name: logs
+            mountPath: /opt/teamcity/logs
+          - name: fluentbit-config
+            mountPath: /fluent-bit/etc/fluent-bit.conf
+            subPath: fluent-bit.conf
+      {{ end }}
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.server.securityContext | nindent 12 }}
@@ -79,9 +89,20 @@ spec:
             readOnly: false
           - name: data
             mountPath: /data/teamcity_server/datadir
+        {{ if .Values.server.logging.enabled }}
+          - name: logs
+            mountPath: /opt/teamcity/logs
+        {{ end }}
           resources:
             {{- toYaml .Values.server.resources | nindent 12 }}
       volumes:
+      {{ if .Values.server.logging.enabled }}
+      - name: fluentbit-config
+        configMap:
+          name: server-fluentbit
+      - name: logs
+        emptyDir: {}
+      {{ end }}
       - name: plugins
         emptyDir: {}
       - name: data
