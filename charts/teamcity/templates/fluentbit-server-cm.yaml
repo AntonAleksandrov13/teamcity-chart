@@ -1,0 +1,25 @@
+{{ if .Values.server.logging.enabled }}
+apiVersion: v1
+data:
+  fluent-bit.conf: |-
+    [SERVICE]
+        Flush         1
+
+    [INPUT]
+        Name             tail
+        Path             /opt/teamcity/logs/teamcity-server.log
+        Mem_Buf_Limit     5MB
+
+    [INPUT]
+        Name             tail
+        Path             /opt/teamcity/logs/teamcity-auth.log
+        Mem_Buf_Limit    5MB
+
+    [OUTPUT]
+        Name  stdout
+        Match *
+kind: ConfigMap
+metadata:
+  name: server-fluentbit
+  namespace: {{.Release.Namespace}}
+{{ end }}
