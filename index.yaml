@@ -3,6 +3,16 @@ entries:
   teamcity:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2021-10-17T17:08:29.837458133Z"
+    description: A Helm chart for Kubernetes
+    digest: 106e42d9bfa7a6a0782a5dd9fb26dc4bf8b3841bd9e99b7e86c6d67b94827dc8
+    name: teamcity
+    type: application
+    urls:
+    - https://github.com/AntonAleksandrov13/teamcity-chart/releases/download/teamcity-0.3.0/teamcity-0.3.0.tgz
+    version: 0.3.0
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2021-10-17T16:42:59.465449143Z"
     description: A Helm chart for Kubernetes
     digest: 51969c1f669b5c9aa19a8e164b196058ff8b7db9c7fcbdf14f6ae830f4834513
