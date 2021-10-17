@@ -23,7 +23,7 @@ jobs:
           python-version: 3.9.6
           architecture: x64
       - name: Install and run bump2version
-        run: pip3 install bump2version && cd ./charts/teamcity && bumpversion minor
+        run: pip3 install bump2version && cd ./charts/teamcity && bumpversion minor && git push
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.1.0
         env:
