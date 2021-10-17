@@ -27,6 +27,26 @@ spec:
       serviceAccountName: {{ .Values.server.serviceAccount.name }}
       securityContext:
         {{- toYaml .Values.server.podSecurityContext | nindent 8 }}
+      initContainers:
+        - name: download-plugins
+          image: busybox
+          command:
+            - "sh"
+            - "/download_plugins.sh"
+          volumeMounts:
+            - name: plugins
+              mountPath: /plugins
+            - name: config
+              mountPath: /download_plugins.sh
+              subPath: download_plugins.sh
+        - name: volume-hack
+          image: alpine:latest
+          command: ["/bin/sh", "-c"]
+          args:
+            - chown -v -R 1000:1000 /mount;
+          volumeMounts:
+          - name: data
+            mountPath: /mount
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -49,8 +69,27 @@ spec:
               port: 8111
             initialDelaySeconds: 60
             periodSeconds: 30
+          volumeMounts:
+          - name: config
+            mountPath: /data/teamcity_server/datadir/config/database.properties
+            subPath: database.properties
+            readOnly: true
+          - name: plugins
+            mountPath: /data/teamcity_server/datadir/plugins
+            readOnly: false
+          - name: data
+            mountPath: /data/teamcity_server/datadir
           resources:
             {{- toYaml .Values.server.resources | nindent 12 }}
+      volumes:
+      - name: plugins
+        emptyDir: {}
+      - name: data
+        persistentVolumeClaim:
+          claimName: task-pv-claim
+      - name: config
+        configMap:
+          name: {{ include "teamcity.fullname" . }}
       {{- with .Values.server.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
