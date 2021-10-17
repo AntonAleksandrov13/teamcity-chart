@@ -5,10 +5,10 @@ metadata:
   labels:
     {{- include "teamcity.labels" . | nindent 4 }}
 spec:
-  type: {{ .Values.service.type }}
+  type: {{ .Values.server.service.type }}
   ports:
-    - port: {{ .Values.service.port }}
-      targetPort: http
+    - port: {{ .Values.server.service.port }}
+      targetPort: 8111
       protocol: TCP
       name: http
   selector:
