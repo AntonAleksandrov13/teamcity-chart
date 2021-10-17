@@ -16,6 +16,8 @@ server:
     user: db-user
     password: db-password
     name: db-name
+    port: 3306
+    host: some_db
 
   serviceAccount:
     # Specifies whether a service account should be created
