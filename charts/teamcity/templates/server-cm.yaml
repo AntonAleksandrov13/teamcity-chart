@@ -7,3 +7,9 @@ data:
     connectionProperties.user={{.Values.server.db.user}}
     connectionProperties.password={{.Values.server.db.password}}
     connectionUrl=jdbc\:mysql\://{{.Values.server.db.host}}:{{.Values.server.db.port}}/{{.Values.server.db.name}}
+  download_plugins.sh: |-
+    {{- if .Values.server.plugins }}
+    {{- range $key, $val := .Values.server.plugins }}
+    wget -c {{ $val }} -O /plugins/{{ $key }}
+    {{- end }}
+    {{- end }}
