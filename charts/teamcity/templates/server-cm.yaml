@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ template "fullname" . }}
+  name: {{ include "teamcity.fullname" . }}
 data:
   database.properties: |-
     connectionProperties.user={{.Values.server.db.user}}
