@@ -43,6 +43,7 @@ spec:
         #When PV is created by external-storage user with UID 0(root) is the owner of all files
         #this trick solves the issue as it runs before teamcity will attempt to run files
         #better switch to aws csi driver for PV and PVC creation
+        #https://github.com/kubernetes/kubernetes/issues/2630
         - name: volume-hack
           image: alpine:latest
           command: ["/bin/sh", "-c"]
