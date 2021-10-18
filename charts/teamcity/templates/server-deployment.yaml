@@ -40,14 +40,6 @@ spec:
             - name: config
               mountPath: /download_plugins.sh
               subPath: download_plugins.sh
-        - name: volume-hack
-          image: alpine:latest
-          command: ["/bin/sh", "-c"]
-          args:
-            - chown -v -R 1000:1000 /mount;
-          volumeMounts:
-          - name: data
-            mountPath: /mount
       containers:
       {{ if .Values.server.logging.enabled }}
         - name: fluentbit
