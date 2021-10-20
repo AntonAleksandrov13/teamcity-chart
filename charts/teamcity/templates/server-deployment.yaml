@@ -73,6 +73,12 @@ spec:
             initialDelaySeconds: 60
             periodSeconds: 30
           volumeMounts:
+          {{- if .Values.server.internal_properties }}
+          - name: config
+            mountPath: /data/teamcity_server/datadir/config/internal.properties
+            subPath: internal.properties
+            readOnly: true
+          {{ end }}
           - name: config
             mountPath: /data/teamcity_server/datadir/config/database.properties
             subPath: database.properties
