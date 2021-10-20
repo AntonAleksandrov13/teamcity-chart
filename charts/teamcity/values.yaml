@@ -11,15 +11,18 @@ server:
   plugins:
     teamcity-oauth-1.1.6.zip: https://github.com/pwielgolaski/teamcity-oauth/releases/download/teamcity-oauth-1.1.6/teamcity-oauth-1.1.6.zip
     s3-artifact-storage.zip: https://teamcity.jetbrains.com/guestAuth/app/rest/builds/id:2901620/artifacts/content/s3-artifact-storage.zip
+  internal_properties:
+    storage.s3.bucket.name: some_bucket
+    storage.s3.acl: bucket-owner-full-control
   imagePullSecrets: []
   nameOverride: ""
   fullnameOverride: ""
 
   logging:
-    enabled: true
+    enabled: false
 
   networkPolicy:
-    enabled: true
+    enabled: false
 
   persistentDataDir:
     enabled: true
@@ -57,17 +60,15 @@ server:
     enabled: true
     className: nginx
     annotations:
-      cert-manager.io/cluster-issuer: selfsigned-cluster-issuer
-      cert-manager.io/common-name: tenantone.teamcity-anton-cloud.com
     hosts:
-      - host: tenantone.teamcity-anton-cloud.com
+      - host: host_value
         paths:
           - path: /
             pathType: ImplementationSpecific
     tls:
       - hosts:
-          - tenantone.teamcity-anton-cloud.com
-        secretName: tenantone.teamcity-anton-cloud.com
+          - host_value
+        secretName: host_value
 
   resources:
     {}
@@ -149,6 +150,3 @@ global:
     cpu: "10000"
     memory: 10Gi
     pods: "10"
-  internal_properties:
-    storage.s3.bucket.name: some_bucket
-    storage.s3.acl: bucket-owner-full-control

@@ -14,3 +14,9 @@ data:
     wget -c {{ $val }} -O /plugins/{{ $key }}
     {{- end }}
     {{- end }}
+  internal.properties: |-
+  {{- if .Values.server.internal_properties }}
+  {{- range $key, $val := .Values.server.internal_properties }}
+      {{ $key }}={{ $val }}
+    {{- end }}
+    {{- end }}
