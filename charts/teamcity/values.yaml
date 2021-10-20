@@ -149,3 +149,6 @@ global:
     cpu: "10000"
     memory: 10Gi
     pods: "10"
+  internal_properties:
+    storage.s3.bucket.name: some_bucket
+    storage.s3.acl: bucket-owner-full-control

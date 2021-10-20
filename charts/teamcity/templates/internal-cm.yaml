@@ -1,0 +1,12 @@
+{{- if .Values.global.internal_properties }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "teamcity.fullname" . }}-internal-properties
+  namespace: {{.Release.Namespace}}
+data:
+  internal.properties: |-
+  {{- range $key, $val := .Values.global.internal_properties }}
+      {{ $key }}={{ $val }}
+    {{- end }}
+{{- end }}
