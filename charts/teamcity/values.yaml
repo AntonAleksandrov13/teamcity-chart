@@ -8,9 +8,7 @@ server:
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
     tag: latest
-  plugins:
-    teamcity-oauth-1.1.6.zip: https://github.com/pwielgolaski/teamcity-oauth/releases/download/teamcity-oauth-1.1.6/teamcity-oauth-1.1.6.zip
-    s3-artifact-storage.zip: https://teamcity.jetbrains.com/guestAuth/app/rest/builds/id:2901620/artifacts/content/s3-artifact-storage.zip
+  plugins: {}
   internal_properties:
     storage.s3.bucket.name: some_bucket
     storage.s3.acl: bucket-owner-full-control
@@ -25,7 +23,7 @@ server:
     enabled: false
 
   persistentDataDir:
-    enabled: true
+    enabled: false
     accessModes:
       - ReadWriteMany
     size: 3Gi
@@ -48,8 +46,7 @@ server:
 
   podAnnotations: {}
 
-  podSecurityContext:
-    fsGroup: 1000
+  podSecurityContext: {}
   securityContext: {}
 
   service:
@@ -111,8 +108,7 @@ agent:
     # Specifies whether a service account should be created
     create: true
     # Annotations to add to the service account
-    annotations:
-      eks.amazonaws.com/role-arn: arn:aws:iam::332319340546:role/tenantone-agent-role
+    annotations: {}
     # The name of the service account to use.
     # If not set and create is true, a name is generated using the fullname template
     name: teamcity-agent
@@ -147,6 +143,6 @@ agent:
 global:
   resource_quota:
     enabled: false
-    cpu: "10000"
+    cpu: "5000m"
     memory: 10Gi
     pods: "10"
