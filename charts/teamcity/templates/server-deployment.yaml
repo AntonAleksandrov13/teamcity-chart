@@ -79,7 +79,7 @@ spec:
             subPath: internal.properties
             readOnly: true
           {{ end }}
-          - name: config
+          - name: db-config
             mountPath: /data/teamcity_server/datadir/config/database.properties
             subPath: database.properties
             readOnly: true
@@ -107,6 +107,9 @@ spec:
       - name: data
         persistentVolumeClaim:
           claimName: {{ include "teamcity.fullname" . }}-server-data
+      - name: db-config
+        secret:
+          secretName: {{ include "teamcity.fullname" . }}-db
       - name: config
         configMap:
           name: {{ include "teamcity.fullname" . }}
